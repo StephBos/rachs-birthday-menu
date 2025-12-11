@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { MENU_ITEMS } from '../consts'
 import Item from './Item'
 import OrderButton from './OrderButton'
+import emailjs from '@emailjs/browser'
 
 export default function Menu() {
    const [selected, setSelected] = useState(null)
@@ -31,14 +32,29 @@ export default function Menu() {
       }
    }
 
+   function sendEmail(order) {
+      const serviceID = 'service_8ffkwwg'
+      const templateID = 'template_kwnrjkv'
+      const userID = 'nu5G4dlf5p3Kw9xNl'
+
+      emailjs.send(serviceID, templateID, {order_item: order, date: today}, userID)
+         .then((response) => {
+            console.log('Email sent successfully!', response.status, response.text)
+         })
+         .catch((err) => {
+            console.error('Failed to send email. Error: ', err)
+         })
+   }
+
    function handleSubmit() {
       console.log('Order Submitted: ', food)
 
       if (food) {
          setOrdered(true)
-         alert(`You have ordered: ${food.name} come back tomorrow for more!`)
          markSoldOut(food.id)
          localStorage.setItem('orderedDate', today)
+         sendEmail(food.name)
+         alert(`You have ordered: ${food.name} come back tomorrow for more!`)
       }
    }
 
@@ -59,7 +75,7 @@ export default function Menu() {
                <OrderButton submitOrder={handleSubmit} />
             </>
          ) : (
-            <h2 className="text-3xl font-yesteryear text-[#333333] mt-10">
+            <h2 className="text-3xl text-[#333333] mt-10 text-center">
                Thank you for your order! ❤️ Come back tomorrow for more!
             </h2>
          )}
