@@ -17,7 +17,7 @@ export default function Item({ item, selected, onSelect, setFood, soldOut }) {
                     ? "bg-gray-300 text-gray-600 cursor-not-allowed" 
                     : isActive 
                         ? "bg-[#F7418F] text-white" 
-                        : "bg-[#FC819E] text-[#333333]"
+                        : "bg-[#FEC7B4] text-[#F7418F]"
                 }
             `}
         >
@@ -29,7 +29,7 @@ export default function Item({ item, selected, onSelect, setFood, soldOut }) {
                 checked={isActive}
                 disabled={soldOut}
                 onChange={handleSelect}
-                className="accent-[#FC819E] w-6 h-6"
+                className="accent-[#FEC7B4] w-6 h-6"
             />
 
             {/* Text section */}
