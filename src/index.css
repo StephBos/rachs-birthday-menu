@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.shine-btn::before {
+  content: "";
+  position: absolute;
+  top: 7%;
+  left: 0%;
+  width: 0;
+  height: 86%;
+  background: white;
+  opacity: 0;
+  transform: skewX(-20deg);
+  box-shadow: 0 0 50px 30px white;
+}
+
+.shine-btn:hover::before {
+  animation: shine 0.5s linear;
+}
+
+@keyframes shine {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
