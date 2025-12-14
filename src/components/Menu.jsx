@@ -12,18 +12,19 @@ export default function Menu() {
    const [open, setOpen] = useState(false)
    const [details, setDetails] = useState(null)
    const [birthday, setBirthday] = useState(false)
+   const [party, setParty] = useState(false)
    const today = new Date().toLocaleDateString().split('T')[0]
    const BIRTHDAY_DATE = '12/16/2025'
+   const PARTY_DATE = '12/14/2025'
 
    useEffect(() => {
-      console.log('Today is ', today)
       const orderedDate = localStorage.getItem('orderedDate')
-      if (orderedDate === today) {
-         setOrdered(true)
-      }
-      if (today === BIRTHDAY_DATE) {
-         setBirthday(true)
-      }
+      if (orderedDate === today) setOrdered(true)
+         
+      if (today === BIRTHDAY_DATE) setBirthday(true)
+
+      if (today === PARTY_DATE) setParty(true)
+     
    }, [])
 
    function loadSoldOutItems() {
@@ -88,7 +89,11 @@ export default function Menu() {
             <h2 className="text-3xl text-[#333333] mt-10 text-center">
                Happy Birthday Baby! 🎉🎂🎈 There's a special surprise for dinner today so don't worry about ordering!
             </h2>
-         ) : !ordered ? (
+         ) : party ? (
+            <h2 className="text-3xl text-[#333333] mt-10 text-center">
+               We're doing the family party Tonight! 🎉🍽️ Come back tomorrow to order!
+            </h2>
+         ): !ordered ? (
             <>
                {MENU_ITEMS.map((item) => (
                   <Item
